@@ -23,7 +23,7 @@
 
   "autoload": {
     "psr-4": {
-      "GraphQL\\Support": "src/"
+      "GraphQL\\Support\\": "src/"
     }
   }
 }
