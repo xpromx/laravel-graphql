@@ -25,7 +25,8 @@ class Query extends BaseQuery
 
         if( isset( $args['orderBy']) )
         {
-            $query->orderBy( $args['orderBy'] );
+            $orderBy = explode(' ', $args['orderBy']);
+            $query->orderBy( $orderBy[0], $orderBy[1] ?? 'ASC' );
         }
 
         if( isset( $args['limit']) && isset( $args['page'] ) )
