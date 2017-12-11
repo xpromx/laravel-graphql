@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Query;
+namespace App\GraphQL\Examples\Query;
 
 use Xpromx\GraphQL\Support\Query;
 use Xpromx\GraphQL\Support\Definition\Type;
