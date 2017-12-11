@@ -87,6 +87,7 @@ class Query extends BaseQuery
                     if( method_exists( $relation->getModel(), $subField ) )
                     {
                         unset($relation_fields[$key]); 
+                        $relation_fields[] = $relation->getModel()->$subField()->getForeignKey();
                     }
                 }
                 
