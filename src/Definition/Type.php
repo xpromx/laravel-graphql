@@ -6,6 +6,8 @@ use GraphQL\Type\Definition\Type as BaseType;
 use Xpromx\GraphQL\Type\HasManyType;
 use Xpromx\GraphQL\Type\HasOneType;
 use Xpromx\GraphQL\Type\ConnectionType;
+use Xpromx\GraphQL\Type\MetaType;
+use Xpromx\GraphQL\Type\DateType;
 use GraphQL;
 
 class Type extends BaseType
@@ -58,7 +60,7 @@ class Type extends BaseType
         if(!isset(self::$externalTypes[$name]))
         {
             // $class = $name.'Type';
-            $class = "\App\GraphQL\Support\Type\\{$name}Type";
+            $class = "\Xpromx\GraphQL\Type\\{$name}Type";
             self::$externalTypes[$name] = new $class();
         }
         
