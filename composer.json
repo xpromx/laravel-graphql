@@ -1,0 +1,29 @@
+{
+  "name": "xpromx/laravel-graphql",
+  "description": "Laravel wrapper for Facebook's GraphQL",
+  "keywords": [
+    "framework",
+    "laravel",
+    "lumen"
+  ],
+  "homepage": "https://github.com/xpromx/laravel-graphql",
+  "version": "1.0.2",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "xpromx",
+      "email": "xpromx@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.0",
+    "folklore/graphql": "^1.0"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "GraphQL\\Support": "src/"
+    }
+  }
+}
