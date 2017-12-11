@@ -1,6 +1,6 @@
 <?php
 
-namespace Xpromx\GraphQL\Support\Type;
+namespace Xpromx\GraphQL\Type;
 
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils;

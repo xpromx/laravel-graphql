@@ -1,9 +1,9 @@
 <?php
 
-namespace App\GraphQL\Examples\Query;
+namespace Xpromx\GraphQL\Examples\Query;
 
-use Xpromx\GraphQL\Support\Query;
-use Xpromx\GraphQL\Support\Definition\Type;
+use Xpromx\GraphQL\Query;
+use Xpromx\GraphQL\Definition\Type;
 
 class UsersQuery extends Query
 {

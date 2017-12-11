@@ -1,9 +1,9 @@
 <?php
 
-namespace App\GraphQL\Examples\Type;
+namespace Xpromx\GraphQL\Examples\Type;
 
-use Xpromx\GraphQL\Support\Definition\Type;
-use Xpromx\GraphQL\Support\Type as BaseType;
+use Xpromx\GraphQL\Definition\Type;
+use Xpromx\GraphQL\Type as BaseType;
 
 class SongType extends BaseType
 {

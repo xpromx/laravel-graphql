@@ -1,9 +1,9 @@
 <?php
 
-namespace Xpromx\GraphQL\Support\Type;
+namespace Xpromx\GraphQL\Type;
 
-use Xpromx\GraphQL\Support\Definition\Type;
-use Xpromx\GraphQL\Support\Query;
+use Xpromx\GraphQL\Definition\Type;
+use Xpromx\GraphQL\Query;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL;
 
