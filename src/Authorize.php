@@ -1,5 +1,5 @@
 <?php
-namespace App\GraphQL\Support;
+namespace Xpromx\GraphQL\Support;
 
 
 trait Authorize {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Support;
+namespace Xpromx\GraphQL\Support;
 
 use GraphQL\Type\Definition\Type as TypeDefinition;
 use Folklore\GraphQL\Support\Type as BaseType;

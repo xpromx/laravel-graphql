@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Query;
 
-use App\GraphQL\Support\Query;
-use App\GraphQL\Support\Definition\Type;
+use Xpromx\GraphQL\Support\Query;
+use Xpromx\GraphQL\Support\Definition\Type;
 
 class UsersQuery extends Query
 {

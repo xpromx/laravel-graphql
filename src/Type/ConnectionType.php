@@ -1,9 +1,9 @@
 <?php
 
-namespace App\GraphQL\Support\Type;
+namespace Xpromx\GraphQL\Support\Type;
 
 use GraphQL\Type\Definition\ObjectType;
-use App\GraphQL\Support\Definition\Type;
+use Xpromx\GraphQL\Support\Definition\Type;
 use GraphQL;
 
 class ConnectionType extends ObjectType {

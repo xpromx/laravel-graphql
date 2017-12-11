@@ -1,11 +1,11 @@
 <?php
 
-namespace App\GraphQL\Support\Definition;
+namespace Xpromx\GraphQL\Support\Definition;
 
 use GraphQL\Type\Definition\Type as BaseType;
-use App\GraphQL\Support\Type\HasManyType;
-use App\GraphQL\Support\Type\HasOneType;
-use App\GraphQL\Support\Type\ConnectionType;
+use Xpromx\GraphQL\Support\Type\HasManyType;
+use Xpromx\GraphQL\Support\Type\HasOneType;
+use Xpromx\GraphQL\Support\Type\ConnectionType;
 use GraphQL;
 
 class Type extends BaseType

@@ -2,10 +2,9 @@
 
 namespace App\GraphQL\Type;
 
-use App\GraphQL\Support\Definition\Type;
-use App\GraphQL\Support\Type as BaseType;
-use GraphQL;
-use App\Song;
+use Xpromx\GraphQL\Support\Definition\Type;
+use Xpromx\GraphQL\Support\Type as BaseType;
+
 
 class UserType extends BaseType
 {

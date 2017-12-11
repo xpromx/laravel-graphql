@@ -1,8 +1,8 @@
 <?php
 
-namespace App\GraphQL\Support\Type;
+namespace Xpromx\GraphQL\Support\Type;
 
-use App\GraphQL\Support\Definition\Type;
+use Xpromx\GraphQL\Support\Definition\Type;
 use Folklore\GraphQL\Support\Type as BaseType;
 
 class PageInfoType extends BaseType

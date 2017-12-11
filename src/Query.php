@@ -1,9 +1,9 @@
 <?php
 
-namespace App\GraphQL\Support;
+namespace Xpromx\GraphQL\Support;
 use GraphQL\Type\Definition\ResolveInfo;
 use Folklore\GraphQL\Support\Query as BaseQuery;
-use App\GraphQL\Support\Definition\Type;
+use Xpromx\GraphQL\Support\Definition\Type;
 
 class Query extends BaseQuery
 {
