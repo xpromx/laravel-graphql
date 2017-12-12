@@ -21,17 +21,20 @@ trait Builder {
             {
                 $relation = $query->getModel()->$field();
 
+                if( !str_contains( get_class( $relation ), 'belognsToMany') )
+                {
+                    continue;
+                }
+
                 $queryRelationFields = $this->getFields( $type, $fields[ $field ] );
                 
-                if( !str_contains( get_class( $relation ), 'many') )
+                if( !str_contains( get_class( $relation ), 'Many') )
                 {
                     if( method_exists($relation, 'getForeignKey') )
                     {
                         $queryFields[] = $relation->getForeignKey();
                     }
                 }
-
-
 
                 $query->with( $field . ':' . implode(',', $queryRelationFields) );
 

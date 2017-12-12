@@ -31,6 +31,7 @@ class Query extends BaseQuery
             return $query->first();
         }
 
+        
         return $query->get();
     }
 
