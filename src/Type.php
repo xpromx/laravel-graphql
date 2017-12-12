@@ -7,7 +7,7 @@ use Folklore\GraphQL\Support\Type as BaseType;
 
 class Type extends BaseType
 {
-
+    
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);

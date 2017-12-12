@@ -9,7 +9,6 @@ use GraphQL;
 class ConnectionType extends ObjectType {
 
     public $type = false;
-    public $model = false;
 
     public function __construct( $typeName )
     {
@@ -18,11 +17,12 @@ class ConnectionType extends ObjectType {
         $config = [
 
             'name'  => str_plural( $typeName ) . 'Connection',
+            'model' => GraphQL::type($typeName)->config['model'],
 
             'fields' => [
 
                 'nodes' => [
-                    'type' => Type::listOf(GraphQL::type($typeName)),
+                    'type' => Type::listOf( GraphQL::type($typeName) ),
                     'resolve' => function( $root ){
                         
                         return $root;

@@ -4,14 +4,25 @@ namespace Xpromx\GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
 use Folklore\GraphQL\Support\Query as BaseQuery;
 use Xpromx\GraphQL\Definition\Type;
+use Xpromx\GraphQL\Filter\FilterQuery;
+use GraphQL;
 
 class Query extends BaseQuery
 {
+    use FilterQuery;
+
+    public $single = false;
 
     public function builder( $query, $args, $info )
     {
 
         $query = $this->makeRelations( $query, $info );
+
+        // Filters
+        if( isset( $args['id']) )
+        {
+            $query->where( 'id',  $args['id'] );
+        }
 
         if( isset( $args['hasRelation']) )
         {
@@ -29,6 +40,11 @@ class Query extends BaseQuery
             $query->orderBy( $orderBy[0], $orderBy[1] ?? 'ASC' );
         }
 
+        if( isset( $args['filter']) )
+        {
+            $query = $this->applyFilters( $query, $args['filter'] );
+        }
+
         if( isset( $args['limit']) && isset( $args['page'] ) )
         {
             $query = $query->paginate($args['limit'], ['*'], 'page', $args['page']);
@@ -39,18 +55,25 @@ class Query extends BaseQuery
             $query->take( $args['limit'] );
         }
 
+
         return $query;
 
     }
 
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-        $query = app()->make( $this->attributes['model'])->query();
-        $query = $this->builder( $query, $args, $info );
+        $query = app()->make( $info->returnType->config['model'] )->query();
 
+        $query = $this->builder( $query, $args, $info );
+        
         if( str_contains( get_class($query), 'Paginator') )
         {
             return $query;
+        }
+
+        if( $this->single )
+        {
+            return $query->first();
         }
 
         return $query->get();
@@ -59,54 +82,44 @@ class Query extends BaseQuery
 
     public function makeRelations( $query, $info )
     {
-        $fields = $info->getFieldSelection(2); // get fields from graphql query
-        $selectFields = []; // add fields for main query
         
-        if( key($fields) == 'nodes' )
-        {
-            $fields = $fields['nodes'];
-        }
+        $type = $this->getType( $info->returnType );
+        $fields = $info->getFieldSelection(2); // get fields from graphql query
+        if( key($fields) == 'nodes' ){ $fields = $fields['nodes']; }
 
-        foreach( $fields as $field=>$value )
+        $queryFields = $this->getFields( $type, $fields );
+        $queryRelations = $this->getRelations( $type, $fields ); // relations in this query
+       
+        if( count($queryRelations) > 0 )
         {
-            // check if the field is a relation or not
-            if( method_exists( $query->getModel(), $field ) )
+            foreach( $queryRelations as $field=>$type )
             {
-                $relation = $query->getModel()->$field(); // get that relation
+                $relation = $query->getModel()->$field();
 
-                if( !str_contains( get_class( $relation ), 'HasMany') )
+                $queryRelationFields = $this->getFields( $type, $fields[ $field ] );
+                
+                if( !str_contains( get_class( $relation ), 'many') )
                 {
-                    $selectFields[] = $relation->getForeignKey();
-                }  
-
-                $relation_fields = array_keys($value); // get the fields of the relation
-
-                foreach( $relation_fields as $key=>$subField )
-                {
-                    // check one more time if that fields are no relations
-                    if( method_exists( $relation->getModel(), $subField ) )
+                    if( method_exists($relation, 'getForeignKey') )
                     {
-                        unset($relation_fields[$key]); 
-                        $relation_fields[] = $relation->getModel()->$subField()->getForeignKey();
+                        $queryFields[] = $relation->getForeignKey();
                     }
                 }
-                
-                // make the relations with the fields
-                $relation_fields = implode(',', $relation_fields);
-                $query->with( $field . ':' . $relation_fields);
+
+
+
+                $query->with( $field . ':' . implode(',', $queryRelationFields) );
 
             }
-            else
-            {
-                $selectFields[] = $field;
-            }
-            
         }
 
-        $query->select( $selectFields );
-
+        $query->select( $queryFields );
+        
         return $query;
+        
     }
+
+
 
     public function getRelationName( $root, $method )
     {
@@ -149,9 +162,20 @@ class Query extends BaseQuery
         return false;
     }
 
-    public function args()
+    public function singleArgs()
     {
-        $args = [
+        return [
+            'id' => [
+                'name' => 'id',
+                'type' => Type::nonNull( Type::Int() ),
+                'description' => 'Find by ID'
+            ]
+        ];
+    }
+
+    public function connectionArgs()
+    {
+        return [
             
             'limit' => [
                 'name' => 'limit',
@@ -183,9 +207,100 @@ class Query extends BaseQuery
                 'description' => 'Returns the elements order by a specific field.',
             ],
 
+            'filter' => [
+                'name' => 'filter',
+                'type' => Type::listOf( GraphQL::type('Filter') ), 
+                'description' => 'Apply fields filters'
+            ],
+
         ];
+    }
+
+    public function args()
+    {
+        $args = [];
+        $this->single = false;
+
+        $current = get_class( $this );
+        $type = ( is_object( $this->type() ) ? get_class( $this->type() ) : false );        
+
+        if(  str_contains( $current , 'Query') )
+        {
+            $args = $this->singleArgs();
+            $this->single = true;
+        }
+
+        if( str_contains( $type , 'Connection') || str_contains($current, 'hasMany') )
+        {
+            $this->single = false;
+            $args = $this->connectionArgs();
+        }
 
         return $args;              
+    }
+
+    public function getFields( $type, $queryFields )
+    {
+        $type = GraphQL::type( $type ); 
+        $table = app()->make($type->config['model'])->getTable();
+
+        // get fields names
+        foreach( $type->getFields() as $field )
+        {
+            if( isset($field->config['field']) || ( !isset($field->config['relation']) && !isset($field->config['ignore']) ) )
+            {
+                $key = ( isset($field->config['field']) ? $field->config['field'] : $field->name );
+                $fields[ $field->name ] = $key;                
+            }
+        }
+
+        $selectedFields['id'] = $table .'.id';
+
+        // only keep the ones we selected
+        foreach( $queryFields as $key=>$field )
+        {
+            if( isset( $fields[ $key ] ) )
+            {
+                $selectedFields[] = $table . '.' . $fields[ $key ];
+            }
+        }
+
+       return $selectedFields;
+       
+    }
+
+    public function getRelations( $type, $queryFields )
+    {
+        
+        $type = GraphQL::type( $type ); 
+
+        $relations = [];
+
+        foreach( $type->getFields() as $field )
+        {
+            if( isset($field->config['relation']) && isset( $queryFields[$field->name] ) )
+            {         
+                $relations[$field->name] = $this->getType( $field->getType() );
+            }
+        }
+
+        return $relations;
+    }
+
+    public function getType( $object )
+    {
+
+        if( property_exists($object, 'type' ) )
+        {
+            return $object->type;
+        }
+
+        if( !property_exists($object, 'config') )
+        {
+            return $object->ofType->config['name'];
+        }
+
+        return $object->config['name'];
     }
 
 }
