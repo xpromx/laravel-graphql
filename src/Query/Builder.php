@@ -1,6 +1,8 @@
 <?php
 namespace Xpromx\GraphQL\Query;
 
+use GraphQL;
+
 trait Builder {
 
     public function makeRelations( $query, $info )
