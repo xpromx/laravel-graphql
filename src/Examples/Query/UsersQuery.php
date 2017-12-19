@@ -10,7 +10,6 @@ class UsersQuery extends Query
     protected $attributes = [
         'name' => 'UsersQuery',
         'description' => 'A query',
-        'model' => \App\User::class,
     ];
 
     public function type()

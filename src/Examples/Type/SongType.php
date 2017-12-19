@@ -9,7 +9,8 @@ class SongType extends BaseType
 {
     protected $attributes = [
         'name' => 'SongType',
-        'description' => 'A type'
+        'description' => 'A type',
+        'model' => \App\User::class,
     ];
 
     public function fields()

@@ -10,7 +10,8 @@ class UserType extends BaseType
 {
     protected $attributes = [
         'name' => 'User',
-        'description' => 'A type'
+        'description' => 'A type',
+        'model' => \App\User::class
     ];
 
     public function fields()
