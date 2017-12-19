@@ -72,7 +72,8 @@ class UserType extends BaseType
 {
     protected $attributes = [
         'name' => 'UserType',
-        'description' => 'A User'
+        'description' => 'A User',
+        'model' => \App\User::class // Laravel Model
     ];
 
     public function fields()
@@ -118,8 +119,7 @@ class UsersQuery extends Query
 {
     protected $attributes = [
         'name' => 'UsersQuery',
-        'description' => 'A Users Query',
-        'model' => \App\User::class // Laravel Model
+        'description' => 'A Users Query'
     ];
 
     public function type()
