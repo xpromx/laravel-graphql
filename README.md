@@ -1,6 +1,6 @@
-This project in made in base of Folklore\GraphQL package, adding Helpers that make more easy the integration with Laravel.
+This project is based of Folklore\GraphQL package, adding Helpers that make more easy the integration with Laravel.
 
-For more detals check:  https://github.com/Folkloreatelier/laravel-graphql
+For more details check:  https://github.com/Folkloreatelier/laravel-graphql
 
 
 - Getting Started
