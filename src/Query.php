@@ -77,6 +77,11 @@ class Query extends BaseQuery
             $query->take( $args['limit'] );
         }
 
+        if( isset($args['locale']) )
+        {
+            $query->translatedIn($args['locale']);
+        }
+
         return $query;
 
     }
