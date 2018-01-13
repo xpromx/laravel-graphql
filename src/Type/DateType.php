@@ -4,6 +4,7 @@ namespace Xpromx\GraphQL\Type;
 
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils;
+use Illuminate\Support\Carbon;
 
 class DateType extends ScalarType
 {
@@ -23,7 +24,7 @@ class DateType extends ScalarType
 
     public function parseValue($value)
     {
-        return $value;
+        return Carbon::parse($value)->format('M j, Y H:ia');
     }
 
     public function parseLiteral($value)
