@@ -82,8 +82,15 @@ class Query extends BaseQuery
             $query->translatedIn($args['locale']);
         }
 
+        $query = $this->query($query, $args);
+
         return $query;
 
+    }
+
+    public function query( $query, $args )
+    {
+        return $query;
     }
 
     public function run()
