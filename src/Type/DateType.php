@@ -19,12 +19,12 @@ class DateType extends ScalarType
 
      public function serialize($value)
      {
-         return (string)$value;
+         return Carbon::parse($value)->format('M j, Y - H:ia');
      }
 
     public function parseValue($value)
     {
-        return Carbon::parse($value)->format('M j, Y H:ia');
+        return $value;
     }
 
     public function parseLiteral($value)
