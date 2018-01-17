@@ -67,6 +67,13 @@ class Query extends BaseQuery
             $query = $this->applyFilters( $query, $args['filter'] );
         }
 
+        if( isset($args['locale']) )
+        {
+            $query->translatedIn($args['locale']);
+        }
+
+        $query = $this->query($query, $args);
+
         if( isset( $args['limit']) && isset( $args['page'] ) )
         {
             $query = $query->paginate($args['limit'], ['*'], 'page', $args['page']);
@@ -76,13 +83,6 @@ class Query extends BaseQuery
         {
             $query->take( $args['limit'] );
         }
-
-        if( isset($args['locale']) )
-        {
-            $query->translatedIn($args['locale']);
-        }
-
-        $query = $this->query($query, $args);
 
         return $query;
 
