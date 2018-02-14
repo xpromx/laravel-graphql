@@ -24,7 +24,7 @@ class Type extends BaseType
 
     public static function is($type)
     {
-        return [ 'type' => self::$type ];
+        return [ 'type' => self::$type() ];
     }
 
     public static function hasMany($name, $method=false)
