@@ -22,9 +22,9 @@ class Type extends BaseType
         return GraphQL::type($type);
     }
 
-    public static function is($type)
+    public static function is($type, $params=[])
     {
-        return [ 'type' => self::$type() ];
+        return [ 'type' => self::$type() ] + $params;
     }
 
     public static function hasMany($name, $method=false)
