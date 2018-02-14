@@ -17,27 +17,31 @@ class Type extends BaseType
 
     private static $externalTypes;
 
-    public static function type( $type )
+    public static function type($type)
     {
-        return GraphQL::type( $type );
+        return GraphQL::type($type);
     }
 
-    public static function hasMany( $name, $method=false )
+    public static function is($type)
+    {
+        return [ 'type' => self::$type ];
+    }
+
+    public static function hasMany($name, $method=false)
     {
         $relation = new HasManyType($name, $method);
         return $relation->run();
     }
 
-    public static function hasOne( $name, $method=false, $field=false )
+    public static function hasOne($name, $method=false, $field=false)
     {
         $relation = new HasOneType($name, $method, $field);
         return $relation->run();
     }
 
-    public static function connection( $name )
+    public static function connection($name)
     {
-        if(!isset(self::$externalTypes[$name]))
-        {
+        if (!isset(self::$externalTypes[$name])) {
             self::$externalTypes[$name] = new ConnectionType($name);
         }
 
@@ -56,16 +60,12 @@ class Type extends BaseType
 
     private static function getExternalType($name = null)
     {
-
-        if(!isset(self::$externalTypes[$name]))
-        {
+        if (!isset(self::$externalTypes[$name])) {
             // $class = $name.'Type';
             $class = "\Xpromx\GraphQL\Type\\{$name}Type";
             self::$externalTypes[$name] = new $class();
         }
         
         return  self::$externalTypes[$name];
-
     }
-
 }
