@@ -13,6 +13,7 @@ For more details check:  https://github.com/Folkloreatelier/laravel-graphql
 - Custom Types
   - [ConnectionType](#connectiontype)
   - [DateType](#datetype)
+  - [TomeType](#timetype)
   - [HasManyType](#hasmanytype)
   - [HasOneType](#hasonetype)
   - [MetaType](#metatype)
@@ -184,6 +185,15 @@ Return the dates formated for humans
 'updated_at' => [
     'type' => Type::date(),
     'description' => 'When the user was updated'
+]
+```
+
+# TimeType
+Return the time formated for humans
+```php
+'duration' => [
+    'type' => Type::time(),
+    'description' => 'Movie duration'
 ]
 ```
 
