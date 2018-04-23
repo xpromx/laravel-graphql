@@ -13,7 +13,7 @@ For more details check:  https://github.com/Folkloreatelier/laravel-graphql
 - Custom Types
   - [ConnectionType](#connectiontype)
   - [DateType](#datetype)
-  - [TomeType](#timetype)
+  - [TimeType](#timetype)
   - [HasManyType](#hasmanytype)
   - [HasOneType](#hasonetype)
   - [MetaType](#metatype)
