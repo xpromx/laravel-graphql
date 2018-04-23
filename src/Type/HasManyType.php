@@ -7,40 +7,36 @@ use Xpromx\GraphQL\Query;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL;
 
-class hasManyType extends Query {
-
+class hasManyType extends Query
+{
     protected $config = [];
 
-    public function __construct( $typeName, $method=false )
+    public function __construct($typeName, $modelMethodName=false)
     {
-        
-       if( !$method )
-       {
+        $method = $modelMethodName;
+
+        if (!$modelMethodName) {
             $method = str_slug($typeName);
-       }
+        }
 
-       $this->config = [
+        $this->config = [
 
-            'type' => Type::listOf( GraphQL::type($typeName) ),
+            'type' => Type::listOf(GraphQL::type($typeName)),
             'relation' => true,
             'args' => $this->args(),
-            'resolve' => function( $root, $args, $context, ResolveInfo $info ) use ($method, $typeName)
-            {
+            'resolve' => function ($root, $args, $context, ResolveInfo $info) use ($method, $typeName) {
                 $relation = $this->getRelationName($root, $method);
                 $query = $root->$relation();
 
-                if( !str_contains( get_class( $query ), 'belognsToMany') )
-                {
+                if (!str_contains(get_class($query), 'belognsToMany')) {
                     return $root->$relation;
                 }
                 
-                $query = $this->builder( $query, $args, $info );
+                $query = $this->builder($query, $args, $info);
 
                 return $query->get();
             }
 
        ];
-
     }
-
 }

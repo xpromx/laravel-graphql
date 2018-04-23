@@ -7,20 +7,19 @@ use Xpromx\GraphQL\Query;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL;
 
-class hasOneType extends Query {
-
+class hasOneType extends Query
+{
     protected $config = [];
 
-    public function __construct( $typeName, $method=false, $field=false )
+    public function __construct($typeName, $modelMethodName=false, $field=false)
     {
+        $method = $modelMethodName;
         
-        if( !$method )
-        {
-             $method = str_slug($typeName);
+        if (!$modelMethodName) {
+            $method = str_slug($typeName);
         }
  
-        if( !$field )
-        {
+        if (!$field) {
             $field = str_singular($method).'_id';
         }
 
@@ -30,17 +29,14 @@ class hasOneType extends Query {
             'relation' => true,
             'field' => $field,
             'args' => [],
-            'resolve' => function( $root, $args, $context, ResolveInfo $info ) use ($method)
-            {            
+            'resolve' => function ($root, $args, $context, ResolveInfo $info) use ($method) {
                 return $root->$method;
             }
         ];
-
     }
 
     public function args()
     {
-        return [];           
+        return [];
     }
-
 }
