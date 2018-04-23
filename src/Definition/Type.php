@@ -8,12 +8,14 @@ use Xpromx\GraphQL\Type\HasOneType;
 use Xpromx\GraphQL\Type\ConnectionType;
 use Xpromx\GraphQL\Type\MetaType;
 use Xpromx\GraphQL\Type\DateType;
+use Xpromx\GraphQL\Type\TimeType;
 use GraphQL;
 
 class Type extends BaseType
 {
     const META = 'Meta';
     const DATE = 'Date';
+    const TIME = 'Time';
 
     private static $externalTypes;
 
@@ -56,6 +58,11 @@ class Type extends BaseType
     public static function date()
     {
         return self::getExternalType(self::DATE);
+    }
+
+    public static function time()
+    {
+        return self::getExternalType(self::TIME);
     }
 
     private static function getExternalType($name = null)
