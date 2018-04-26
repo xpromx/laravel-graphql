@@ -3,16 +3,26 @@
 namespace Xpromx\GraphQL\Definition;
 
 use GraphQL\Type\Definition\Type as BaseType;
+
+// Types
 use Xpromx\GraphQL\Type\HasManyType;
 use Xpromx\GraphQL\Type\HasOneType;
 use Xpromx\GraphQL\Type\ConnectionType;
 use Xpromx\GraphQL\Type\MetaType;
 use Xpromx\GraphQL\Type\DateType;
 use Xpromx\GraphQL\Type\TimeType;
+
+// Fields
+use Xpromx\GraphQL\Field\DateField;
+use Xpromx\GraphQL\Field\TimeField;
+
 use GraphQL;
 
 class Type extends BaseType
 {
+    use DateField;
+    use TimeField;
+    
     const META = 'Meta';
     const DATE = 'Date';
     const TIME = 'Time';
