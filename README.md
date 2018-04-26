@@ -19,6 +19,9 @@ For more details check:  https://github.com/Folkloreatelier/laravel-graphql
   - [MetaType](#metatype)
   - [PageInfoType](#pageinfotype)
 
+- Custom Fields
+  - [DateField](#datefield)
+  - [TimeField](#timefield)
 
 # Installation
 
@@ -233,6 +236,58 @@ Return the pagination fields, this one is automatically applied in the Connectio
         last_page,
         per_page,
         total
+    }
+}
+```
+
+# DateField
+You can use a custom date field to have a default format and also be able to change the format from the query.
+
+```php
+    public function fields()
+    {
+        return [
+            'updated_at' => Type::dateField($field='updated_at', $format='M j, Y'),
+        ]
+    }
+```
+
+```json
+{
+    userQuery(page:1, limit:20){
+        nodes{
+            id,
+            first_name
+            created_at(format:"Y-m-d")
+            ...
+        },
+        
+    }
+}
+```
+
+# TimeField
+You can use a custom time field to have a default format and also be able to change the format from the query.
+
+```php
+    public function fields()
+    {
+        return [
+            'updated_at' => Type::timeField($field='updated_at', $format='H:i'),
+        ]
+    }
+```
+
+```json
+{
+    userQuery(page:1, limit:20){
+        nodes{
+            id,
+            first_name
+            created_at(format:"H:i:s")
+            ...
+        },
+        
     }
 }
 ```
