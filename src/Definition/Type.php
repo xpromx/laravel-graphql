@@ -11,6 +11,7 @@ use Xpromx\GraphQL\Type\ConnectionType;
 use Xpromx\GraphQL\Type\MetaType;
 use Xpromx\GraphQL\Type\DateType;
 use Xpromx\GraphQL\Type\TimeType;
+use Xpromx\GraphQL\Type\FileType;
 
 // Fields
 use Xpromx\GraphQL\Field\DateField;
@@ -26,6 +27,7 @@ class Type extends BaseType
     const META = 'Meta';
     const DATE = 'Date';
     const TIME = 'Time';
+    const FILE = 'File';
 
     private static $externalTypes;
 
@@ -73,6 +75,11 @@ class Type extends BaseType
     public static function time()
     {
         return self::getExternalType(self::TIME);
+    }
+
+    public static function file()
+    {
+        return self::getExternalType(self::FILE);
     }
 
     private static function getExternalType($name = null)
