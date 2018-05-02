@@ -28,7 +28,7 @@ class hasManyType extends Query
                 $relation = $this->getRelationName($root, $method);
                 $query = $root->$relation();
 
-                if (!str_contains(get_class($query), 'belognsToMany')) {
+                if (!str_contains(get_class($query), 'belongsToMany')) {
                     return $root->$relation;
                 }
                 

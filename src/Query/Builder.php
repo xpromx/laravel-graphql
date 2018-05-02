@@ -47,17 +47,17 @@ trait Builder
 
         // check method
         if (method_exists($root, $method)) {
-            $relation = $method;
+            return $method;
         }
         
         // plural method
         if (!$relation && method_exists($root, str_plural($method))) {
-            $relation = str_plural($method);
+            return str_plural($method);
         }
         
         // singular method
         if (!$relation && method_exists($root, str_singular($method))) {
-            $relation = str_singular($method);
+            return str_singular($method);
         }
 
         return $relation;

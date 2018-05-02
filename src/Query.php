@@ -1,6 +1,7 @@
 <?php
 
 namespace Xpromx\GraphQL;
+
 use GraphQL\Type\Definition\ResolveInfo;
 use Folklore\GraphQL\Support\Query as BaseQuery;
 use Xpromx\GraphQL\Filter\FilterQuery;
@@ -17,17 +18,15 @@ class Query extends BaseQuery
 
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-        $query = app()->make( $info->returnType->config['model'] )->query();
+        $query = app()->make($info->returnType->config['model'])->query();
 
-        $query = $this->makeQuery( $query, $args, $info );
+        $query = $this->makeQuery($query, $args, $info);
         
-        if( str_contains( get_class($query), 'Paginator') )
-        {
+        if (str_contains(get_class($query), 'Paginator')) {
             return $query;
         }
-
-        if( $this->single )
-        {
+        
+        if ($this->single) {
             return $query->first();
         }
 
@@ -35,60 +34,50 @@ class Query extends BaseQuery
         return $query->get();
     }
 
-    public function makeQuery( $query, $args, $info )
+    public function makeQuery($query, $args, $info)
     {
-
-        $query = $this->makeRelations( $query, $info );
+        $query = $this->makeRelations($query, $info);
 
         // Filters
-        if( isset( $args['id']) )
-        {
-            $query->where( 'id',  $args['id'] );
+        if (isset($args['id'])) {
+            $query->where('id', $args['id']);
         }
 
-        if( isset( $args['hasRelation']) )
-        {
-            $query->has( $args['hasRelation'] );
+        if (isset($args['hasRelation'])) {
+            $query->has($args['hasRelation']);
         }
 
-        if( isset( $args['doesntHaveRelation']) )
-        {
-            $query->doesntHave( $args['doesntHaveRelation'] );
+        if (isset($args['doesntHaveRelation'])) {
+            $query->doesntHave($args['doesntHaveRelation']);
         }
 
-        if( isset( $args['orderBy']) )
-        {
+        if (isset($args['orderBy'])) {
             $orderBy = explode(' ', $args['orderBy']);
-            $query->orderBy( $orderBy[0], $orderBy[1] ?? 'ASC' );
+            $query->orderBy($orderBy[0], $orderBy[1] ?? 'ASC');
         }
 
-        if( isset( $args['filter']) )
-        {
-            $query = $this->applyFilters( $query, $args['filter'] );
+        if (isset($args['filter'])) {
+            $query = $this->applyFilters($query, $args['filter']);
         }
 
-        if( isset($args['locale']) )
-        {
+        if (isset($args['locale'])) {
             $query->translatedIn($args['locale']);
         }
 
         $query = $this->query($query, $args);
 
-        if( isset( $args['limit']) && isset( $args['page'] ) )
-        {
+        if (isset($args['limit']) && isset($args['page'])) {
             $query = $query->paginate($args['limit'], ['*'], 'page', $args['page']);
         }
 
-        if( isset( $args['limit']) && !isset( $args['page'] ) )
-        {
-            $query->take( $args['limit'] );
+        if (isset($args['limit']) && !isset($args['page'])) {
+            $query->take($args['limit']);
         }
 
         return $query;
-
     }
 
-    public function query( $query, $args )
+    public function query($query, $args)
     {
         return $query;
     }
@@ -100,12 +89,10 @@ class Query extends BaseQuery
 
     public function type()
     {
-        if( isset( $this->config['type'] ) )
-        {
+        if (isset($this->config['type'])) {
             return $this->config['type'];
         }
 
         return false;
     }
-
 }
