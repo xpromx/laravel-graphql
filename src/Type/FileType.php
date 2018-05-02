@@ -8,7 +8,7 @@ use GraphQL\Type\Definition\EnumType as EnumObjectType;
 
 class FileType extends ScalarType
 {
-    public $name = "file";
+    public $name = "File";
     public $description = "meta field for this model";
 
     public function __construct()
