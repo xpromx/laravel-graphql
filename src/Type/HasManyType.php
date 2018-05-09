@@ -25,16 +25,12 @@ class hasManyType extends Query
             'relation' => true,
             'args' => $this->args(),
             'resolve' => function ($root, $args, $context, ResolveInfo $info) use ($method, $typeName) {
+                
                 $relation = $this->getRelationName($root, $method);
                 $query = $root->$relation();
-
-                if (!str_contains(get_class($query), 'belongsToMany')) {
-                    return $root->$relation;
-                }
-                
-                $query = $this->builder($query, $args, $info);
-
+                $query = $this->makeQuery( $query, $args, $info );
                 return $query->get();
+
             }
 
        ];
