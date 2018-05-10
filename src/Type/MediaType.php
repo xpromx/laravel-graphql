@@ -15,28 +15,37 @@ class MediaType extends BaseType
     {
         return [
         'url' => [
-          'type' => Type::string()
+          'type' => Type::string(),
+          'args' => [
+            'size' => [
+              'type' => Type::string(),
+              'defaultValue' => null
+            ]
+          ]
         ],
+
         'name' => [
           'type' => Type::string()
         ],
+
         'fullUrl' => [
           'type' => Type::string()
         ],
+
         'path' => [
           'type' => Type::string()
         ]
       ];
     }
-    public function resolveUrlField($root, $argd)
+    public function resolveUrlField($root, $args)
     {
-        return $root->getUrl();
+        return $root->getUrl($args['size']);
     }
-    public function resolveFullUrlField($root, $argd)
+    public function resolveFullUrlField($root, $args)
     {
         return $root->getFullUrl();
     }
-    public function resolvePathField($root, $argd)
+    public function resolvePathField($root, $args)
     {
         return $root->getFullUrl();
     }
