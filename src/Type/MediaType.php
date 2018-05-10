@@ -16,6 +16,7 @@ class MediaType extends BaseType
         return [
         'url' => [
           'type' => Type::string(),
+          'field' => 'disk',
           'args' => [
             'size' => [
               'type' => Type::string(),
@@ -29,11 +30,13 @@ class MediaType extends BaseType
         ],
 
         'fullUrl' => [
-          'type' => Type::string()
+          'type' => Type::string(),
+          'ignore' => true,
         ],
 
         'path' => [
-          'type' => Type::string()
+          'type' => Type::string(),
+          'ignore' => true,
         ]
       ];
     }
