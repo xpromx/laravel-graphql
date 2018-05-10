@@ -16,7 +16,7 @@ class MediaType extends BaseType
         return [
         'url' => [
           'type' => Type::string(),
-          'field' => 'disk',
+          'field' => '*',
           'args' => [
             'size' => [
               'type' => Type::string(),
