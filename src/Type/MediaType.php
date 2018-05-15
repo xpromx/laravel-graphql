@@ -9,14 +9,15 @@ class MediaType extends BaseType
     protected $attributes = [
         'name' => 'Media',
         'description' => 'A media item',
-        'model' => \App\Models\Media::class
+        'model' => \App\Models\Media::class,
+        'select' => 'media.*'
      ];
     public function fields()
     {
         return [
         'url' => [
           'type' => Type::string(),
-          'field' => '*',
+          'ignore' => true,
           'args' => [
             'size' => [
               'type' => Type::string(),

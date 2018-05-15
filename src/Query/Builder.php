@@ -78,13 +78,20 @@ trait Builder
 
         $selectedFields['id'] = $table .'.id';
 
+        if( isset($type->config['select']) )
+        {
+            $selectedFields[] = $type->config['select'];
+        }
+
         // only keep the ones we selected
         foreach ($queryFields as $key=>$field) {
             if (isset($fields[ $key ])) {
                 $selectedFields[] = $table . '.' . $fields[ $key ];
             }
         }
+
         
+
         return $selectedFields;
     }
 
