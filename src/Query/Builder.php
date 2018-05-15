@@ -84,7 +84,7 @@ trait Builder
                 $selectedFields[] = $table . '.' . $fields[ $key ];
             }
         }
-
+        
         return $selectedFields;
     }
 
