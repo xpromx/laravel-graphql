@@ -21,7 +21,7 @@ class MediaType extends BaseType
           'args' => [
             'size' => [
               'type' => Type::string(),
-              'defaultValue' => null
+              'defaultValue' => ''
             ]
           ]
         ],
