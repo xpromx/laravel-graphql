@@ -7,7 +7,6 @@ use Xpromx\GraphQL\Definition\Type;
 
 trait DateField
 {
-
     public static function dateField($field='created_at', $format='M j, Y')
     {
         return [
@@ -18,10 +17,12 @@ trait DateField
                     'defaultValue' => $format
                 ],
             ],
-            'resolve' => function ($root, $args, $context) use($field) {
+            'resolve' => function ($root, $args, $context) use ($field) {
+                if ($root->field === null) {
+                    return null;
+                }
                 return Carbon::parse($root->$field)->format($args['format']);
             }
         ];
     }
-
 }
