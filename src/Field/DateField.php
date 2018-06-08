@@ -18,7 +18,7 @@ trait DateField
                 ],
             ],
             'resolve' => function ($root, $args, $context) use ($field) {
-                if ($root->field === null) {
+                if ($root->$field === null) {
                     return null;
                 }
                 return Carbon::parse($root->$field)->format($args['format']);
