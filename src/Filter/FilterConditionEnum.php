@@ -3,8 +3,8 @@ namespace Xpromx\GraphQL\Filter;
 
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
-class FilterConditionEnum extends GraphQLType {
-
+class FilterConditionEnum extends GraphQLType
+{
     protected $enumObject = true;
 
     protected $attributes = [
@@ -16,6 +16,7 @@ class FilterConditionEnum extends GraphQLType {
             'LT'  => 'LT',
             'LTE' => 'LTE',
             'EQUAL'  => 'EQUAL',
+            'NOT_EQUAL' => 'NOT_EQUAL',
             'CONTAINS' => 'CONTAINS',
             'NOT_CONTAINS' => 'NOT_CONTAINS',
             'STARTS_WITH' => 'STARTS_WITH',

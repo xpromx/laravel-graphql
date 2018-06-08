@@ -2,26 +2,19 @@
 
 namespace Xpromx\GraphQL\Filter;
 
-
 trait FilterQuery
 {
-
-    public function applyFilters( $query, $filters )
+    public function applyFilters($query, $filters)
     {
-  
-        foreach( $filters as $filter )
-        {
+        foreach ($filters as $filter) {
             $method = 'filter_'. $filter['condition'];
 
-            if( method_exists($this, $method ) )
-            {
-                $query = $this->$method( $query, $filter['field'], $filter['value'] );  
+            if (method_exists($this, $method)) {
+                $query = $this->$method($query, $filter['field'], $filter['value']);
             }
-            
         }
-  
+
         return $query;
-  
     }
 
     public function filter_GT($query, $field, $value)
@@ -47,6 +40,11 @@ trait FilterQuery
     public function filter_EQUAL($query, $field, $value)
     {
         return $query->where($field, '=', $value);
+    }
+
+    public function filter_NOT_EQUAL($query, $field, $value)
+    {
+        return $query->where($field, '!=', $value);
     }
 
     public function filter_CONTAINS($query, $field, $value)
@@ -78,5 +76,4 @@ trait FilterQuery
     {
         return $query->whereNotIn($field, explode(',', $value));
     }
-
 }
