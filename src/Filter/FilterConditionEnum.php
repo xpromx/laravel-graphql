@@ -16,13 +16,15 @@ class FilterConditionEnum extends GraphQLType
             'LT'  => 'LT',
             'LTE' => 'LTE',
             'EQUAL'  => 'EQUAL',
-            'NOT_EQUAL' => 'NOT_EQUAL',
             'CONTAINS' => 'CONTAINS',
             'NOT_CONTAINS' => 'NOT_CONTAINS',
             'STARTS_WITH' => 'STARTS_WITH',
             'ENDS_WITH'  => 'ENDS_WTIH',
             'IN' => 'IN',
             'NOT_IN' => 'NOT_IN',
+            'NOT_EQUAL' => 'NOT_EQUAL',
+            'NULL' => 'NULL',
+            'NOT_NULL' => 'NOT_NULL'
         ],
     ];
 }

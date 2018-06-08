@@ -76,4 +76,14 @@ trait FilterQuery
     {
         return $query->whereNotIn($field, explode(',', $value));
     }
+
+    public function filter_NULL($query, $field)
+    {
+        return $query->whereNull($field);
+    }
+
+    public function filter_NOT_NULL($query, $field)
+    {
+        return $query->whereNotNull($field);
+    }
 }
