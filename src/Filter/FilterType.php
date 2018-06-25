@@ -31,7 +31,7 @@ class FilterType extends BaseType
             ],
 
             'value' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'value to filter, separate multiple values with ","',
             ],
 

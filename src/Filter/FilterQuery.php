@@ -10,7 +10,12 @@ trait FilterQuery
             $method = 'filter_'. $filter['condition'];
 
             if (method_exists($this, $method)) {
-                $query = $this->$method($query, $filter['field'], $filter['value']);
+
+                if( isset($filter['value']) )
+                {
+                    $query = $this->$method($query, $filter['field'], $filter['value']);
+                }
+                
             }
         }
 
