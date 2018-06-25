@@ -21,17 +21,17 @@ class FilterType extends BaseType
         return [
             
             'field' => [
-                'type' => Type::nonNull( Type::string() ), 
+                'type' => Type::nonNull(Type::string()),
                 'description' => 'name of field to apply filter',
             ],
 
             'condition' => [
-                'type' => Type::nonNull( GraphQL::type('FilterCondition') ),
+                'type' => Type::nonNull(GraphQL::type('FilterCondition')),
                 'description' => 'filtes allowed',
             ],
 
             'value' => [
-                'type' => Type::nonNull( Type::string() ),
+                'type' => Type::nonNull(Type::string()),
                 'description' => 'value to filter, separate multiple values with ","',
             ],
 
@@ -42,5 +42,4 @@ class FilterType extends BaseType
 
         ];
     }
-
 }

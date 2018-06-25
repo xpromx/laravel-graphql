@@ -40,7 +40,7 @@ class Query extends BaseQuery
 
         // Filters
         if (isset($args['id'])) {
-            $query->where('id', $args['id']);
+            $query->where($query->getModel()->getTable().'.id', $args['id']);
         }
 
         if (isset($args['hasRelation'])) {
