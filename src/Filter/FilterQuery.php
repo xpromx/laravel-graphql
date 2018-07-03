@@ -39,7 +39,7 @@ trait FilterQuery
 
     public function filter_LTE($query, $field, $value)
     {
-        return $query->where($field, '=<', $value);
+        return $query->where($field, '<=', $value);
     }
 
     public function filter_EQUAL($query, $field, $value)
