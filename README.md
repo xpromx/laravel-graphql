@@ -136,7 +136,7 @@ class UsersQuery extends Query
 ```
 
 # Query Arguments
-This are the filters you can apply automatically for your Queries.
+these are the filters you can apply automatically for your Queries.
 In order to use the filters you have to register the types in your graphql.php config.
 
 ```php
