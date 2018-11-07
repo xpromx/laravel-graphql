@@ -136,7 +136,18 @@ class UsersQuery extends Query
 ```
 
 # Query Arguments
-This are the filters you can apply automatically for your Queries
+This are the filters you can apply automatically for your Queries.
+In order to use the filters you have to register the types in your graphql.php config.
+
+```php
+
+'types' => [
+        'Filter'            => 'Xpromx\GraphQL\Filter\FilterType',
+        'FilterCondition'   => 'Xpromx\GraphQL\Filter\FilterConditionEnum',
+]
+```
+
+Query Example:
 ```json
 users(
     id: 1,
@@ -145,7 +156,7 @@ users(
     hasRelation: 'user',
     doesntHaveRelation: 'comments',
     orderBy: 'id DESC',
-    filter: {field: "email", condition:CONTAINS, value:"@gmail.com"}
+    filter: [{field: "email", condition:CONTAINS, value:"@gmail.com"}]
 )
 {
     nodes {
