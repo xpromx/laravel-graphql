@@ -18,8 +18,7 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=7.0",
-    "folklore/graphql": "^1.0",
-    "barryvdh/laravel-cors": "^0.9.3"
+    "folklore/graphql": "^1.1"
   },
 
   "autoload": {
