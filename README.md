@@ -137,7 +137,7 @@ class UsersQuery extends Query
 
 # Query Arguments
 these are the filters you can apply automatically for your Queries.
-In order to use the filters you have to register the types in your graphql.php config.
+In order to use advance filters you have to register the types in your graphql.php config.
 
 ```php
 
@@ -170,7 +170,21 @@ users(
 }
 ```
 
-the variable
+### Filters conditions:
+- GT
+- GTE
+- LT
+- LTE
+- EQUAL
+- CONTAINS
+- NOT_CONTAINS
+- STARTS_WITH
+- ENDS_WTIH
+- IN
+- NOT_IN
+- NOT_EQUAL
+- NULL
+- NOT_NULL
 
 
 # ConnectionType
